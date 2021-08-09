@@ -38,6 +38,9 @@ function randomInt(n) {
 
 //把 ary 的索引亂數化
 //傳回亂數化過的 ary 索引
+//例如:學生有28人，索引範圍 0~27
+//把 0~27 隨機交換，產生一個新的陣列
+//此函式並不會改變原本的陣列，請安心使用
 function randomArrayIndex(ary){
     let aryLength = ary.length;
     let indexAry = [];
