@@ -91,3 +91,12 @@ function lineAsArray(line) {
 function checkIsBoy(sex) {
     return (sex == 1 || sex == "1" || sex == "男");
 }
+
+
+//算出繞了幾圈，還剩多少距離
+function lapsMod(totalDistance, circumference) {
+    let obj = {};
+    obj.laps = Math.floor(totalDistance / circumference);    //繞了幾圈
+    obj.remain = totalDistance - obj.laps * circumference;   //剩多少距離
+    return obj;
+}
