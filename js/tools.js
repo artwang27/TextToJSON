@@ -42,9 +42,31 @@ function randomInt(n) {
 //把 0~27 隨機交換，產生一個新的陣列
 //此函式並不會改變原本的陣列，請安心使用
 function randomArrayIndex(ary){
-    let aryLength = ary.length;
-    let indexAry = [];
-    //先將索引值，按順序填入
+    alert("randomArrayIndex(ary)已經過時，請改用 randomIntArray(start,end)");
+    return randomIntArray(0, ary.length-1);
+
+    // let aryLength = ary.length;
+    // let indexAry = [];
+    // //先將索引值，按順序填入
+    // for (let i = 0; i < aryLength; i++) {
+    //     indexAry.push(i);
+    // }
+
+    // //交換第 i,j 元素的內容
+    // for (let i = 0; i < aryLength; i++) {
+    //     let j = randomInt(aryLength);
+    //     [indexAry[i], indexAry[j]] = [indexAry[j], indexAry[i]];
+    // }
+    // return indexAry;
+}
+
+
+//產生 start ~ end 之間的整數，打亂之後，放入陣列
+//用途：產生隨機的索引值 
+function randomIntArray(start,end) {
+    let aryLength = end-start+1;
+    let indexAry = new Array(aryLength);
+    //先將數字按順序填入
     for (let i = 0; i < aryLength; i++) {
         indexAry.push(i);
     }
@@ -56,6 +78,7 @@ function randomArrayIndex(ary){
     }
     return indexAry;
 }
+
 
 
 //=================讀檔相關===============================
