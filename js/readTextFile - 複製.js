@@ -5,6 +5,32 @@ doc檔 與  text檔:
 doc 檔有特定的格式，是處理過的 text 檔，專門用來記錄資料，他的第一列是欄位名稱，接下來的各列是資料的內容
 */
 
+//去掉所有空白列
+function removeBlankLines(doc) {
+    return doc.replace(/(\n[\s\t]*\r*\n)/g, '\n').replace(/^[\n\r\n\t]*|[\n\r\n\t]*$/g, '')
+}
+
+
+//把文件拆成一列一列，構成 lines 陣列
+function docAsLines(doc){
+    let lines = doc.split(/[\n|\r\n]{1,}/);
+    return lines;
+}
+
+
+//每一橫列，以空白為區隔，分解成陣列
+//傳回每一列的欄位內容
+//split函数以空格分割的正确用法：
+//String.split函数支持正则表达式匹配字符串，\s表示匹配任何空格，包括tab键，+表示一次或者多次，\\s进行转义
+function lineAsArray(line){
+    //line=" 22 陳安箴 教室 第三組 ";
+    //lineData = ["22", "陳安箴", "教室", "第三組"];
+    let lineAry = line.trim().split(/\s+/);
+    //print2(lineData.length);
+    return lineAry;
+}
+
+
 
 /*
 //範例：onLoadComplete

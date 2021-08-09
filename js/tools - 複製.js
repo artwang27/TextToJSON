@@ -1,34 +1,28 @@
-//=================列印相關===============================
-
-//在此設定要 print 指令要顯示在哪個區域( DOM 元件上)
-let myPrint={
-    area: "#printArea" //注意： #， id 別忘了
-}
 
 function print2(data) {
     console.log(data);
 }
 
-function print3(data) {
+//在網頁上直接顯示
+function printHtml(data="") {
+    globals.printLines += (data) + "</br>";  //每列印一筆，要記得換行
+    $("#printArea").html(globals.printLines);
+}
+
+function print3(data){
     printHtml(data);
 }
 
-
-//在網頁上直接顯示連續的 data
-//列印在 myPrint.area 所指定的位置
-//把要列印的地方的 id 傳給 myPrint.area 
-function printHtml(data = "") {
-    $(myPrint.area).append(data + "<br />");   //每列印一筆，要記得換行
+function cls() {
+    globals.printLines = "";
 }
 
 
-//清除列印範圍
-function printCls() {
-    $(myPrint.area).html("");
+
+function checkIsBoy(sex){
+    return (sex == 1 || sex=="男");
 }
 
-
-//=================亂數相關===============================
 
 //產生 0 ~ n-1，隨機的整數
 function randomInt(n) {
@@ -55,6 +49,14 @@ function randomArrayIndex(ary){
 }
 
 
+//算出繞了幾圈，還剩多少距離
+function lapsMod(totalDistance, circumference) {
+    let obj = {};
+    obj.laps = Math.floor(totalDistance / circumference);    //繞了幾圈
+    obj.remain = totalDistance - obj.laps * circumference;   //剩多少距離
+    return obj;
+}
+
 //=================讀檔相關===============================
 
 //去掉文件中所有空白列
@@ -80,11 +82,4 @@ function lineAsArray(line) {
     let lineAry = line.trim().split(/\s+/);
     //print2(lineData.length);
     return lineAry;
-}
-
-
-//=================其他===============================
-
-function checkIsBoy(sex) {
-    return (sex == 1 || sex == "男");
 }
