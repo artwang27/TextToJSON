@@ -67,8 +67,9 @@ function randomIntArray(start,end) {
     let aryLength = end-start+1;
     let indexAry = new Array(aryLength);
     //先將數字按順序填入
+    let k=start;
     for (let i = 0; i < aryLength; i++) {
-        indexAry.push(i);
+        indexAry[i]=k++;
     }
 
     //交換第 i,j 元素的內容
