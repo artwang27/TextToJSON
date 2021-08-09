@@ -30,8 +30,11 @@ function onLoadComplete(text) {
 參數一: DOM 的 inputID 字串，
 此 id 字串，是指包含在 <input type="file" id="#inputID"> dom 裡面的 inputID
 參數二: 當檔案載入完畢後，要進一步處理的回呼函式
-自動回呼： onLoadComplete(doc)
-【注意】此時的 doc 已經先去除了不必要的空白列
+
+讀檔完畢自動回呼： onLoadComplete(doc)
+【注意】接收的回呼函數，形如: 
+function onLoadComplete(doc)
+已有內建的 doc 參數可以使用，且已經先去除了不必要的空白列
 
 程式寫法
 註一：
