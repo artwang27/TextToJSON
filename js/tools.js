@@ -86,5 +86,5 @@ function lineAsArray(line) {
 //=================其他===============================
 
 function checkIsBoy(sex) {
-    return (sex == 1 || sex == "男");
+    return (sex == 1 || sex == "1" || sex == "男");
 }
