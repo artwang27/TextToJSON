@@ -5,6 +5,11 @@ doc檔 與  text檔:
 doc 檔有特定的格式，是處理過的 text 檔，專門用來記錄資料，他的第一列是欄位名稱，接下來的各列是資料的內容
 */
 
+//去掉所有空白列
+function removeBlankLines(doc) {
+    return doc.replace(/(\n[\s\t]*\r*\n)/g, '\n').replace(/^[\n\r\n\t]*|[\n\r\n\t]*$/g, '')
+}
+
 
 //把文件拆成一列一列，構成 lines 陣列
 function docAsLines(doc){

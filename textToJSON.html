@@ -28,7 +28,7 @@
         background-color: #EEE;
     }
 
-    #myFile, #copyBtn{
+    button{
         font-size: 1em; 
     }
 
@@ -44,6 +44,7 @@
     <section>
         <div class="divArea">Text Area
         <textarea id="TextArea"></textarea>
+        <button id="toJSonBtn">轉換成JSON</button>
         </div>
    
         <div class="divArea">JSON Area
@@ -68,6 +69,15 @@
                 $area.select();
 
             });
+
+
+            //當按下[轉換成JSON]按鈕時
+                $("#toJSonBtn").click(function () {
+                let doc = $("#TextArea").val();
+                let str_JSON = docToJsonAsLongString(doc);
+                $("#JsonArea").val(str_JSON);    //將此長字串填入 textarea
+            });
+
         });
 
 
@@ -80,15 +90,6 @@
             let object_JSON= docToJSON(doc);    //獲取 JSON 物件
             let str_JSON= JSON.stringify(object_JSON);  //字串化
             $("#JsonArea").val(str_JSON);    //將此長字串填入 textarea
-        }
-
-
-        function docToJsonAsLongString(doc){
-            //轉譯過的 JSON 物件顯示出來
-            let object_JSON = docToJSON(doc);    //獲取 JSON 物件
-            let str_JSON = JSON.stringify(object_JSON);  //字串化
-            $("#JsonArea").val(str_JSON);    //將此長字串填入 textarea
-
         }
 
         function print2(x) {

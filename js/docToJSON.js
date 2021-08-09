@@ -36,6 +36,7 @@ function docToJSON(doc){
         records: []
     }
 
+    doc = removeBlankLines(doc);    //去掉所有空白列
     let lines= docAsLines(doc); //分解成一行一行的陣列
     table.fields = lineAsArray(lines[0]); //讀出標題列
 
@@ -58,6 +59,7 @@ function docToJSON(doc){
     
     return table;
 }
+
 
 //把 doc 直接轉譯成 json 化過的長字串，為了要方便顯示在 textArea，或黏貼資料，準備存檔
 function docToJsonAsLongString(doc) {
