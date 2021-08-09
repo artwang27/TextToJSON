@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Arthur Wang">
+    <title>將 txt 文字檔轉換為 JSON 格式</title>
+</head>
+<style>
+    section{
+        width: 1200px;
+        display: flex;
+        justify-content: center;
+    }
+
+    textarea {
+        width: 500px;
+        height: 600px;
+        margin-left:50px;
+        margin-right:50px;
+    }
+
+    .divArea{
+        text-align: center;
+        font-size: 2em; 
+        padding:20px;
+        background-color: #EEE;
+    }
+
+    #myFile, #copyBtn{
+        font-size: 1em; 
+    }
+
+    header{
+        font-size: 2em;
+    }
+</style>
+
+<body>
+    <header>將 txt 文字檔轉換為 JSON 格式</header>
+    <p>文字檔(*.txt) 最前面要有標題欄位，每筆資料一行，每個項目以空白隔開</p>
+    <p> <input type="file" id="myFile"  /></p>
+    <section>
+        <div class="divArea">Text Area
+        <textarea id="TextArea"></textarea>
+        </div>
+   
+        <div class="divArea">JSON Area
+        <textarea id="JsonArea"></textarea>
+        <button id="copyBtn">全選</button>
+        </div>
+    </section>
+    
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/readTextFile.js"></script>
+    <script src="js/docToJSON.js"></script>
+    <script>
+        $(function(){
+
+            //讀檔時將會觸發
+            let loadText=new LoadTextFile("myFile", onLoadOK)
+
+            //複製 JSON 選取區
+            $("#copyBtn").click(function(){
+                let $area= $("#JsonArea");
+                $area.focus();
+                $area.select();
+
+            });
+        });
+
+
+        //當 txt 文字檔讀檔完畢時...
+        function onLoadOK(doc){
+            //將檔案內容顯示出來
+            $("#TextArea").val(doc);
+
+            //轉譯過的 JSON 物件顯示出來
+            let object_JSON= docToJSON(doc);    //獲取 JSON 物件
+            let str_JSON= JSON.stringify(object_JSON);  //字串化
+            $("#JsonArea").val(str_JSON);    //將此長字串填入 textarea
+        }
+
+
+        function docToJsonAsLongString(doc){
+            //轉譯過的 JSON 物件顯示出來
+            let object_JSON = docToJSON(doc);    //獲取 JSON 物件
+            let str_JSON = JSON.stringify(object_JSON);  //字串化
+            $("#JsonArea").val(str_JSON);    //將此長字串填入 textarea
+
+        }
+
+        function print2(x) {
+            console.log(x);
+        }
+
+    </script>
+</body>
+
+</html>
