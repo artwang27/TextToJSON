@@ -109,6 +109,33 @@ function lineAsArray(line) {
     return lineAry;
 }
 
+//================= jQuery 擴充函數===============================
+//讓jQuery 物件關連到 obj 物件 
+function jquerySetObject($jq, obj) {
+    $jq.data("obj", obj)    //用 jquery.data() 建造新的屬性 "obj"， 然後把關聯的物件
+}
+
+//取出 jQuery 所關連到的 obj 物件
+function jqueryGetObject($jq) {
+    return $jq.data("obj");
+}
+
+
+//執行某一類別的函數方法
+//寫法很高深~~
+//特定類別的呼叫
+//參數1：以 jquery 物件為參數
+//參數2：欲執行的類別方法
+function classCall($jq, method) {
+    let classObj = $jq.data("obj");    //取得對應的物件
+    if (classObj == undefined) {
+        print("此物件不支援反查詢");
+        return;
+    }
+
+    classObj[method]($jq);
+}
+
 
 //=================其他===============================
 
