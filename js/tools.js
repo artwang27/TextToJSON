@@ -24,7 +24,8 @@ function printHtml(data = "") {
 
 //清除列印範圍
 function printCls() {
-    $(myPrint.area).html("");
+    //$(myPrint.area).html("");
+    $(myPrint.area).empty();
 }
 
 
