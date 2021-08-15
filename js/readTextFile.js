@@ -48,13 +48,13 @@ bind 語法: $(selector).bind(event,data,function(e))
 */
 // 
 class LoadTextFile {
-    constructor(inputFileId, onLoadComplete) {
+    constructor(inputFileId, onLoadComplete, whoCallMe) {
         let self=this;
 
         if (inputFileId[0] != "#"){ inputFileId = "#" + inputFileId;  }
         let $myfileDom = $(inputFileId);  //select id 是以 '#' 開頭
 
-        $myfileDom.bind("change", { fReaderOKFunction: onLoadComplete }, function (E){
+        $myfileDom.on("change", { fReaderOKFunction: onLoadComplete }, function (E){
             //print2(this);      //這裡的 this 是  <input id="myfile" type="file"> dom 物件，不是 jQuery 喔！
 
             let file = this.files[0];   //只處理第一個檔
@@ -66,7 +66,7 @@ class LoadTextFile {
                 doc = self.removeBlankLines(doc);   //清除所有空白列
 
                 //print2(E);  //E 是 Event 物件
-                E.data.fReaderOKFunction(doc);  //當檔案讀取完畢，呼叫預設的 onLoadComplete()
+                E.data.fReaderOKFunction(doc, whoCallMe);  //當檔案讀取完畢，呼叫預設的 onLoadComplete()
             }//fReader
         })//bind
     }//constructor
@@ -79,5 +79,39 @@ class LoadTextFile {
 
 
 }//class
+
+
+// class LoadTextFile {
+//     constructor(inputFileId, onLoadComplete) {
+//         let self = this;
+
+//         if (inputFileId[0] != "#") { inputFileId = "#" + inputFileId; }
+//         let $myfileDom = $(inputFileId);  //select id 是以 '#' 開頭
+
+//         $myfileDom.bind("change", { fReaderOKFunction: onLoadComplete }, function (E) {
+//             //print2(this);      //這裡的 this 是  <input id="myfile" type="file"> dom 物件，不是 jQuery 喔！
+
+//             let file = this.files[0];   //只處理第一個檔
+//             let fReader = new FileReader();
+//             fReader.readAsText(file);
+
+//             fReader.onload = function (event) {
+//                 let doc = event.target.result;  //讀完的文字檔可能包含了不必要的空白列
+//                 doc = self.removeBlankLines(doc);   //清除所有空白列
+
+//                 //print2(E);  //E 是 Event 物件
+//                 E.data.fReaderOKFunction(doc);  //當檔案讀取完畢，呼叫預設的 onLoadComplete()
+//             }//fReader
+//         })//bind
+//     }//constructor
+
+
+//     //去掉所有空白列
+//     removeBlankLines(doc) {
+//         return doc.replace(/(\n[\s\t]*\r*\n)/g, '\n').replace(/^[\n\r\n\t]*|[\n\r\n\t]*$/g, '')
+//     }
+
+
+// }//class
 
 
