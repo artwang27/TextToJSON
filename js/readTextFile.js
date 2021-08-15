@@ -27,9 +27,9 @@ function onLoadComplete(text) {
 
 
 /*
-參數一: DOM 的 inputID 字串，
-此 id 字串，是指包含在 <input type="file" id="#inputID"> dom 裡面的 inputID
-參數二: 當檔案載入完畢後，要進一步處理的回呼函式
+參數一 inputFileId:  是指 <input type="file" id="inputID"> 裡的 id 字串，此處為 "inputID"，
+    它將被轉為 jquery 物件， 若寫成 "#inputID" 也是 OK 的
+參數二 onLoadComplete: 當檔案載入完畢後，要進一步處理的回呼函式，它的實做形式為 onLoadComplete(doc){...}
 
 讀檔完畢自動回呼： onLoadComplete(doc)
 【注意】接收的回呼函數，形如: 
@@ -40,7 +40,7 @@ function onLoadComplete(doc)
 註一：
 bind 語法: $(selector).bind(event,data,function(e))
 其中 e 是 Event 物件，包含了很多屬性，像是 type:"change", target:input#myfile, 也包含了 data 屬性
-當有其他資訊要傳入時，可以用 bind 的第二個參數來設定 e.data
+當有額外資訊要傳入時，可以用 bind 的第二個參數來設定 e.data
 
 註二：
     fReader.onload = function (event) 與 change 的 event 為了避免名稱衝突，
@@ -51,7 +51,9 @@ class LoadTextFile {
     constructor(inputFileId, onLoadComplete) {
         let self=this;
 
-        let $myfileDom = $("#" + inputFileId);  //select id 是以 '#' 開頭
+        if (inputFileId[0] != "#"){ inputFileId = "#" + inputFileId;  }
+        let $myfileDom = $(inputFileId);  //select id 是以 '#' 開頭
+
         $myfileDom.bind("change", { fReaderOKFunction: onLoadComplete }, function (E){
             //print2(this);      //這裡的 this 是  <input id="myfile" type="file"> dom 物件，不是 jQuery 喔！
 
