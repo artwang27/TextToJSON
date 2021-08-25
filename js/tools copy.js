@@ -113,38 +113,13 @@ function lineAsArray(line) {
 //================= jQuery 擴充函數===============================
 //讓jQuery 物件關連到 obj 物件 
 function jquerySetObject($jq, obj) {
-    alert("請改版成 setJqueryObject($jq, obj)");
     $jq.data("obj", obj)    //用 jquery.data() 建造新的屬性 "obj"， 然後把關聯的物件
 }
 
 //取出 jQuery 所關連到的 obj 物件
 function jqueryGetObject($jq) {
-    alert("請改版成 getJqueryObject($jq)");
     return $jq.data("obj");
 }
-
-
-//讓jQuery 物件關連到 obj 物件 
-function setJqueryObject($jq, obj) {
-    $jq.data("obj", obj);
-}
-
-//取出 jQuery 所關連到的 obj 物件
-function getJqueryObject($jq) {
-    return $jq.data("obj");
-}
-
-//讓 dom物件關連到 obj 物件 
-function setDomObject(dom, obj) {
-    setJqueryObject($(dom), obj);
-}
-
-//取出 dom 所關連到的 obj 物件
-function getDomObject(dom) {
-    return getJqueryObject($(dom));
-}
-
-
 
 
 //執行某一類別的函數方法
