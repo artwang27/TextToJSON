@@ -39,7 +39,10 @@ function onLoadComplete(doc)
 程式寫法
 註一：
 bind 語法: $(selector).bind(event,data,function(e))
-其中 e 是 Event 物件，包含了很多屬性，像是 type:"change", target:input#myfile, 也包含了 data 屬性
+其中 e 是 Event 物件，包含了很多屬性，像是 
+    type:"change", 
+    target:input#myfile, 
+    data : 額外資料屬性
 當有額外資訊要傳入時，可以用 bind 的第二個參數來設定 e.data
 
 註二：
@@ -49,6 +52,8 @@ bind 語法: $(selector).bind(event,data,function(e))
 // 
 class LoadTextFile {
     constructor(inputFileId, onLoadComplete, whoCallMe) {
+
+        alertt("LoadTextFile已經棄用，請改為 new TextFileReader() 為佳！");
         let self=this;
 
         if (inputFileId[0] != "#"){ inputFileId = "#" + inputFileId;  }
@@ -68,7 +73,8 @@ class LoadTextFile {
                 //print2(E);  //E 是 Event 物件
                 E.data.fReaderOKFunction(doc, whoCallMe);  //當檔案讀取完畢，呼叫預設的 onLoadComplete()
             }//fReader
-        })//bind
+            
+        })//on  (也就是 bind)
     }//constructor
 
     

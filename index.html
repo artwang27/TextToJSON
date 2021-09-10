@@ -8,7 +8,7 @@
     <title>將 txt 文字檔轉換為 JSON 格式</title>
 </head>
 <style>
-    section{
+    section {
         width: 1200px;
         display: flex;
         justify-content: center;
@@ -17,55 +17,61 @@
     textarea {
         width: 500px;
         height: 600px;
-        margin-left:50px;
-        margin-right:50px;
+        margin-left: 50px;
+        margin-right: 50px;
     }
 
-    .divArea{
+    .divArea {
         text-align: center;
-        font-size: 1.5em; 
-        padding:20px;
+        font-size: 1.5em;
+        padding: 20px;
         background-color: #EEE;
     }
 
-    button{
-        font-size: 1em; 
+    button {
+        font-size: 1em;
     }
 
-    header{
+    header {
         font-size: 2em;
     }
 </style>
 
 <body>
     <header>將 txt 文字檔轉換為 JSON 格式</header>
-    <p>文字檔(*.txt) 最前面要有【標題欄位】<br/>每筆資料一行，每個項目以空白隔開。<br />中間有空白行也沒關係，程式會自動過濾掉這些行</p>
-    <p> <input type="file" id="myFile"  /></p>
+    <p>文字檔(*.txt) 最前面要有【標題欄位】<br />每筆資料一行，每個項目以空白隔開。<br />中間有空白行也沒關係，程式會自動過濾掉這些行</p>
+    <p> <input type="file" id="myFile" /></p>
     <section>
         <div class="divArea">Text Area
-        <textarea id="TextArea"></textarea>
-        <button id="toJSonBtn">轉換成JSON</button>
+            <textarea id="TextArea"></textarea>
+            <button id="toJSonBtn">轉換成JSON</button>
         </div>
-   
+
         <div class="divArea">JSON Area
-        <textarea id="JsonArea"></textarea>
-        <button id="copyBtn">全選</button>
+            <textarea id="JsonArea"></textarea>
+            <button id="copyBtn">全選</button>
         </div>
     </section>
-    
+
     <script src="js/jquery-3.6.0.min.js"></script>
     <script src="js/tools.js"></script>
-    <script src="js/readTextFile.js"></script>
+    <!-- <script src="js/readTextFile.js"></script> -->
+    <script src="js/textFileReader.js"></script>
+
     <script src="js/docToJSON.js"></script>
     <script>
-        $(function(){
+        let textFileReader;
+
+        $(function () {
+
+            textFileReader = new TextFileReader("myFile");
 
             //讀檔時將會觸發
-            let loadText=new LoadTextFile("myFile", onLoadOK)
+            textFileReader.onload(onLoadOK, null);
 
             //複製 JSON 選取區
-            $("#copyBtn").click(function(){
-                let $area= $("#JsonArea");
+            $("#copyBtn").click(function () {
+                let $area = $("#JsonArea");
                 $area.focus();
                 $area.select();
 
@@ -73,24 +79,26 @@
 
 
             //當按下[轉換成JSON]按鈕時
-                $("#toJSonBtn").click(function () {
+            $("#toJSonBtn").click(function () {
                 let doc = $("#TextArea").val();
                 let str_JSON = docToJsonAsLongString(doc);
                 $("#JsonArea").val(str_JSON);    //將此長字串填入 textarea
             });
-            
+
 
         });
 
 
+
         //當 txt 文字檔讀檔完畢時...
-        function onLoadOK(doc){
+        function onLoadOK() {
+            let doc = textFileReader.doc;
             //將檔案內容顯示出來
             $("#TextArea").val(doc);
 
             //轉譯過的 JSON 物件顯示出來
-            let object_JSON= docToJSON(doc);    //獲取 JSON 物件
-            let str_JSON= JSON.stringify(object_JSON);  //字串化
+            let object_JSON = docToJSON(doc);    //獲取 JSON 物件
+            let str_JSON = JSON.stringify(object_JSON);  //字串化
             $("#JsonArea").val(str_JSON);    //將此長字串填入 textarea
         }
 
